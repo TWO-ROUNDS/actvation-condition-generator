@@ -92,7 +92,7 @@ export function generateConditionWithDates(startDate, endDate) {
  * @param {string} variable one of CONDITION_VARIABLES
  * @param {string} operation =, <=, >=, <, or >
  * @param {number} value value to use operation
- * @returns
+ * @returns {Condition} generated condition
  */
 export function generateConditionWithVariable(variable, operation, value) {
   if (!Object.values(CONDITION_VARIABLES).includes(variable)) {
