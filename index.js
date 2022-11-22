@@ -39,7 +39,7 @@ export let Condition = class {
    * @returns {Condition} result of the operation
    */
   and(anotherCondition) {
-    return new Condition(`(and, ${this.value}, ${anotherCondition.value})`);
+    return new Condition(`(and ${this.value} ${anotherCondition.value})`);
   }
 
   /**
@@ -48,7 +48,7 @@ export let Condition = class {
    * @returns {Condition} result of the operation
    */
   or(anotherCondition) {
-    return new Condition(`(or, ${this.value}, ${anotherCondition.value})`);
+    return new Condition(`(or ${this.value} ${anotherCondition.value})`);
   }
 
   /**
@@ -56,7 +56,7 @@ export let Condition = class {
    * @returns {Condition} result of the operation
    */
   not() {
-    return new Condition(`(not, ${this.value})`);
+    return new Condition(`(not ${this.value})`);
   }
 };
 
@@ -83,7 +83,7 @@ export function generateConditionWithDates(startDate, endDate) {
   const variable = CONDITION_VARIABLES.UNIX;
 
   return new Condition(
-    `(and, (>=, ${startDate.getTime()}, ${variable}), (<=, ${endDate.getTime()}, ${variable}))`
+    `(and (>= ${startDate.getTime()} ${variable}) (<= ${endDate.getTime()} ${variable}))`
   );
 }
 
@@ -100,5 +100,5 @@ export function generateConditionWithVariable(variable, operation, value) {
   } else if (!["=", "<=", ">=", "<", ">"].includes(operation)) {
     throw `Operation ${operation} is not defined. Only '=', '<=', '>=', '<', '>' can be used.`;
   }
-  return new Condition(`(${operation}, ${variable}, ${value})`);
+  return new Condition(`(${operation} ${variable} ${value})`);
 }

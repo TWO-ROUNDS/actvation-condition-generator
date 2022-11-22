@@ -19,7 +19,7 @@ test("Case #2-1: Date Range In Same Month", () => {
   expect(
     generateConditionWithDates(new Date("2022-01-01"), new Date("2022-01-15"))
       .value
-  ).toBe("(and, (>=, 1640995200000, u), (<=, 1642204800000, u))");
+  ).toBe("(and (>= 1640995200000 u) (<= 1642204800000 u))");
 });
 
 test("Case #2-2: DateTime Range", () => {
@@ -28,7 +28,7 @@ test("Case #2-2: DateTime Range", () => {
       new Date("2022-01-01 09:13:11"),
       new Date("2022-01-15 23:22:10")
     ).value
-  ).toBe("(and, (>=, 1640995991000, u), (<=, 1642256530000, u))");
+  ).toBe("(and (>= 1640995991000 u) (<= 1642256530000 u))");
 });
 
 test("Case #2-3: Exceptional Case - Wrond Date", () => {
@@ -45,20 +45,20 @@ test("Case #2-3: Exceptional Case - Wrond Date", () => {
 test("Case #3-1: Specific Year", () => {
   expect(
     generateConditionWithVariable(CONDITION_VARIABLES.YEAR, "=", 2021).value
-  ).toBe("(=, y, 2021)");
+  ).toBe("(= y 2021)");
 });
 
 test("Case #3-2: Specific Week", () => {
   expect(
     generateConditionWithVariable(CONDITION_VARIABLES.WEEK, "=", 1).value
-  ).toBe("(=, w, 1)");
+  ).toBe("(= w 1)");
 });
 
 test("Case #3-3: Every Weekends", () => {
   expect(
     generateConditionWithVariable(CONDITION_VARIABLES.DAY_OF_WEEK, ">=", 6)
       .value
-  ).toBe("(>=, d, 6)");
+  ).toBe("(>= d 6)");
 });
 
 test("Case #3-4: Exceptional Case - Wrong Variable/Operator", () => {
@@ -72,7 +72,7 @@ test("Case #4-1: Specific Date", () => {
       .and(generateConditionWithVariable(CONDITION_VARIABLES.MONTH, "=", 3))
       .and(generateConditionWithVariable(CONDITION_VARIABLES.DAY, "=", 13))
       .value
-  ).toBe("(and, (and, (=, y, 2022), (=, M, 3)), (=, D, 13))");
+  ).toBe("(and (and (= y 2022) (= M 3)) (= D 13))");
 });
 
 test("Case #4-2: Specific Season with Exception", () => {
@@ -82,7 +82,7 @@ test("Case #4-2: Specific Season with Exception", () => {
       .and(
         generateConditionWithVariable(CONDITION_VARIABLES.WEEK, "=", 2).not()
       ).value
-  ).toBe("(and, (and, (>=, M, 3), (<, M, 6)), (not, (=, w, 2)))");
+  ).toBe("(and (and (>= M 3) (< M 6)) (not (= w 2)))");
 });
 
 // (2월과 8월의 둘째 주 금요일)과 (2022년 7월 8일 3시 44분 3초부터 2022년 9월 2일 4시 24분 5초 사이에서 금요일을 뺀 날)
@@ -116,12 +116,12 @@ test("Case #4-3: Very Complex Condition", () => {
     );
 
   expect(left.value).toBe(
-    "(and, (or, (=, M, 2), (=, M, 8)), (and, (=, w, 2), (=, d, 5)))"
+    "(and (or (= M 2) (= M 8)) (and (= w 2) (= d 5)))"
   );
   expect(right.value).toBe(
-    "(and, (and, (>=, u, 1657219443000), (<=, u, 1662060245000)), (not, (=, d, 5)))"
+    "(and (and (>= u 1657219443000) (<= u 1662060245000)) (not (= d 5)))"
   );
   expect(left.or(right).value).toBe(
-    "(or, (and, (or, (=, M, 2), (=, M, 8)), (and, (=, w, 2), (=, d, 5))), (and, (and, (>=, u, 1657219443000), (<=, u, 1662060245000)), (not, (=, d, 5))))"
+    "(or (and (or (= M 2) (= M 8)) (and (= w 2) (= d 5))) (and (and (>= u 1657219443000) (<= u 1662060245000)) (not (= d 5))))"
   )
 });
