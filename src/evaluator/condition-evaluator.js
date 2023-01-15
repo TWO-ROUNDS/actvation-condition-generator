@@ -4,7 +4,7 @@
  * @originalcode https://github.com/TWO-ROUNDS/two-rounds-api-server/blob/main/app/util/condition-evaluator.js
  */
 
-import { parser, tokenizer, rules } from "./lisp-parser.js";
+const lisp = require("./lisp-parser");
 
 const values = {
   true: () => true,
@@ -25,7 +25,7 @@ const values = {
  * @param {Date} date date to get week number
  * @returns {number} result
  */
-export function getWeekNumOfMonth(date) {
+function getWeekNumOfMonth(date) {
   var THURSDAY_NUM = 4; // 첫째주의 기준은 목요일(4)이다. (https://info.singident.com/60)
 
   var firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -93,13 +93,18 @@ function evaluateParts(parts) {
  * @throws {string} unexpected expression
  * @returns {boolean} evaluated result
  */
-export function evaluateCondition(expression) {
+function evaluateCondition(expression) {
   const parent = RegExp(/^\s*\(/).exec(expression);
 
   if (parent === null) {
     return values[expression]();
   }
 
-  const parts = parser(tokenizer(rules))(expression);
+  const parts = lisp.parser(lisp.tokenizer(lisp.rules))(expression);
   return evaluateParts(parts);
 }
+
+module.exports = {
+  getWeekNumOfMonth: getWeekNumOfMonth,
+  evaluateCondition: evaluateCondition,
+};

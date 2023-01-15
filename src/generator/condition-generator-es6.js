@@ -5,7 +5,7 @@
 /**
  * condition variables for generate condition
  */
-const CONDITION_VARIABLES = {
+export const CONDITION_VARIABLES = {
   UNIX: "u",
   YEAR: "y",
   MONTH: "M",
@@ -22,7 +22,7 @@ Object.freeze(CONDITION_VARIABLES);
  * condition class
  * @param {string} value string value of the condition
  */
-let Condition = class {
+export let Condition = class {
   #value = "";
 
   /**
@@ -79,7 +79,7 @@ export function generateConditionWithBoolean(boolean) {
  * @param {Date} endDate end date of activation
  * @returns {Condition} generated condition
  */
-function generateConditionWithDates(startDate, endDate) {
+export function generateConditionWithDates(startDate, endDate) {
   if (startDate > endDate) {
     throw "The startDate must be prior than the endDate.";
   }
@@ -98,7 +98,7 @@ function generateConditionWithDates(startDate, endDate) {
  * @param {number} value value to use operation
  * @returns {Condition} generated condition
  */
-function generateConditionWithVariable(variable, operation, value) {
+export function generateConditionWithVariable(variable, operation, value) {
   if (!Object.values(CONDITION_VARIABLES).includes(variable)) {
     throw `Variable ${variable} is not defined. Please check the 'CONDITION_VARIABLES'.`;
   } else if (!["=", "<=", ">=", "<", ">"].includes(operation)) {
@@ -106,11 +106,3 @@ function generateConditionWithVariable(variable, operation, value) {
   }
   return new Condition(`(${operation} ${variable} ${value})`);
 }
-
-module.exports = {
-  CONDITION_VARIABLES: CONDITION_VARIABLES,
-  Condition: Condition,
-  generateConditionWithBoolean: generateConditionWithBoolean,
-  generateConditionWithDates: generateConditionWithDates,
-  generateConditionWithVariable: generateConditionWithVariable,
-};

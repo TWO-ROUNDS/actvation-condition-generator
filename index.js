@@ -1,7 +1,7 @@
-import * as generator from "./src/generator/condition-generator.js";
-import * as evaluator from "./src/evaluator/condition-evaluator.js";
+const generator = require("./src/evaluator/condition-generator");
+const evaluator = require("./src/evaluator/condition-evaluator");
 
-modules.export = {
+modules.exports = {
     CONDITION_VARIABLES: generator.CONDITION_VARIABLES,
     generateConditionWithBoolean: generator.generateConditionWithBoolean,
     generateConditionWithDates: generator.generateConditionWithDates,
