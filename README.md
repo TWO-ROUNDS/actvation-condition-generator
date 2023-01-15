@@ -13,8 +13,8 @@ import {
   generateConditionWithBoolean,
   generateConditionWithDates,
   generateConditionWithVariable,
+  evaluateCondition,
 } from "actvation-condition-generator";
-import { evaluateCondition } from "./condition-evaluator.js";
 
 // true
 console.log(generateConditionWithBoolean(true).value);
