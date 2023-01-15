@@ -69,7 +69,7 @@ let Condition = class {
  * @param {boolean} boolean is activated
  * @returns {Condition} generated condition
  */
-export function generateConditionWithBoolean(boolean) {
+function generateConditionWithBoolean(boolean) {
   return new Condition(boolean ? "true" : "false");
 }
 
