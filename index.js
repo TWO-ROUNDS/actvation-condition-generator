@@ -1,4 +1,4 @@
-const generator = require("./src/evaluator/condition-generator");
+const generator = require("./src/generator/condition-generator");
 const evaluator = require("./src/evaluator/condition-evaluator");
 
 modules.exports = {
