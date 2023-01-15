@@ -1,5 +1,5 @@
 # 🔨 actvation-condition-generator
-LISP Style Activation Condition Generator for Two Rounds Application Service
+LISP Style Activation Condition Generator & Parser for Two Rounds Application Service
 
 ## Installation
 ```
@@ -14,11 +14,12 @@ import {
   generateConditionWithDates,
   generateConditionWithVariable,
 } from "actvation-condition-generator";
+import { evaluateCondition } from "./condition-evaluator.js";
 
 // true
 console.log(generateConditionWithBoolean(true).value);
 
-// (and (>= 1640995200000 u) (<= 1642204800000 u))
+// (and (>= u 1640995200000) (<= u 1642204800000))
 console.log(generateConditionWithDates(new Date("2022-01-01"), new Date("2022-01-15")).value);
 
 // (and (and (= y 2022) (= M 3)) (= D 13))
@@ -26,4 +27,7 @@ console.log(generateConditionWithVariable(CONDITION_VARIABLES.YEAR, "=", 2022)
       .and(generateConditionWithVariable(CONDITION_VARIABLES.MONTH, "=", 3))
       .and(generateConditionWithVariable(CONDITION_VARIABLES.DAY, "=", 13))
       .value);
+
+// true when the current date is 2022-03-13
+console.log(evaluateCondition("(and (and (= y 2022) (= M 3)) (= D 13))"));
 ```

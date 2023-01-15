@@ -3,7 +3,7 @@ import {
   generateConditionWithBoolean,
   generateConditionWithDates,
   generateConditionWithVariable,
-} from "./index.js";
+} from "./condition-generator.js";
 
 // Case 1: True or False
 test("Case #1-1: True", () => {
@@ -19,7 +19,7 @@ test("Case #2-1: Date Range In Same Month", () => {
   expect(
     generateConditionWithDates(new Date("2022-01-01"), new Date("2022-01-15"))
       .value
-  ).toBe("(and (>= 1640995200000 u) (<= 1642204800000 u))");
+  ).toBe("(and (>= u 1640995200000) (<= u 1642204800000))");
 });
 
 test("Case #2-2: DateTime Range", () => {
@@ -28,10 +28,10 @@ test("Case #2-2: DateTime Range", () => {
       new Date("2022-01-01 09:13:11"),
       new Date("2022-01-15 23:22:10")
     ).value
-  ).toBe("(and (>= 1640995991000 u) (<= 1642256530000 u))");
+  ).toBe("(and (>= u 1640995991000) (<= u 1642256530000))");
 });
 
-test("Case #2-3: Exceptional Case - Wrond Date", () => {
+test("Case #2-3: Exceptional Case - End Before Start", () => {
   expect(
     () =>
       generateConditionWithDates(
@@ -54,11 +54,11 @@ test("Case #3-2: Specific Week", () => {
   ).toBe("(= w 1)");
 });
 
-test("Case #3-3: Every Weekends", () => {
+test("Case #3-3: Every Fridays and Saturdays", () => {
   expect(
-    generateConditionWithVariable(CONDITION_VARIABLES.DAY_OF_WEEK, ">=", 6)
+    generateConditionWithVariable(CONDITION_VARIABLES.DAY_OF_WEEK, ">=", 5)
       .value
-  ).toBe("(>= d 6)");
+  ).toBe("(>= d 5)");
 });
 
 test("Case #3-4: Exceptional Case - Wrong Variable/Operator", () => {

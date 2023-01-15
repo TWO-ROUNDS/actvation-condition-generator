@@ -1,8 +1,13 @@
 {
   "name": "actvation-condition-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Activation Condition Generator for Two Rounds Application Service",
+  "keywords": [
+    "js",
+    "condition",
+    "expression"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -11,7 +16,10 @@
     "type": "git",
     "url": "git+https://github.com/TWO-ROUNDS/actvation-condition-generator.git"
   },
-  "author": "Mango-Juice <wjsalsrb5@naver.com> (https://mango-juice.oopy.io)",
+  "contributors": [
+    "Mango-Juice <wjsalsrb5@naver.com> (https://mango-juice.oopy.io)",
+    "CaChiJ <chj7239@gmail.com> (https://github.com/CaChiJ)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/TWO-ROUNDS/actvation-condition-generator/issues",
