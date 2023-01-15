@@ -1,7 +1,6 @@
 {
   "name": "actvation-condition-generator",
-  "version": "1.0.4",
-  "type": "module",
+  "version": "1.0.5",
   "description": "Activation Condition Generator for Two Rounds Application Service",
   "keywords": [
     "js",
